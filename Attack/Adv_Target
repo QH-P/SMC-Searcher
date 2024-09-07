@@ -192,7 +192,6 @@ if __name__ == "__main__":
 
     env = gym(env_name)
     env.setup(Algorithm, robot_num)
-    env.robot_trajectories_num = 1
     obs_dim = env.position_embed
     action_dim = env.action_dim
 
