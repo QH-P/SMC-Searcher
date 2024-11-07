@@ -1,0 +1,1 @@
+This diretory contains the framework and corresponsing simulation results in SMC-Searcher.
