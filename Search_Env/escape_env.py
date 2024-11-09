@@ -100,7 +100,11 @@ class escape_sim:
         clipped_trajectory = copy.copy(self.target_trajectory[-self.trajectory_clip_length:])
         self.observation = self.embedding_layer(torch.tensor(clipped_trajectory))
 
-    def _judge_capture(self):
+    def _judge_capture(self, MODE = 0):
+        # MODE = 0: Explore the environment while avoid being capture (default and recommend)
+        # MODE = 1: weekly explore the environment while avoid being capture
+        # MODE = 2: completely avoid being capture (not recommend, since target will hide in a very small area to make
+        # any search algorithm fail, and the only possible solution is sweep the whole environment with enough number of robots)
         t_position = self.target_trajectory[-1]
         t_p_position = self.target_trajectory[-2]
         time_step = len(self.target_trajectory)
@@ -118,18 +122,18 @@ class escape_sim:
                     self.capture_flag_list[i] = True
                     break
         self.explore_reward = 0
-        if t_position not in self.target_trajectory[:-1]:
+        if t_position not in self.target_trajectory[:-1] and MODE != 2:
             self.explore_reward = self.explore_base * (len(self.capture_flag_list) - sum(self.capture_flag_list))
         self.reward = reward
 
-    def _actionNum(self):
+    def _actionNum(self, MODE = 0):
         # need trajectory to judge how many position
         position = self.target_trajectory[-1]
         self.next_position_list = self.map.next_total_position_list(position)
         for i in range(len(self.target_trajectory)-1,max(-1,len(self.target_trajectory)-self.target_back_length),-1):
             if len(self.next_position_list) == 1:
                 break
-            if self.target_trajectory[i] in self.next_position_list:
+            if self.target_trajectory[i] in self.next_position_list and MODE == 0:
                 self.next_position_list.remove(self.target_trajectory[i])
         self.action_num = len(self.next_position_list)
 
