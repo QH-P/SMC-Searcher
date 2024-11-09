@@ -59,8 +59,9 @@ class escape_sim:
         print("end load robot trajectory file")
 
     def setup(self, Algorithm, robot_num):
-        robot_trajectory_file_base = "/Users/pqh/PycharmProjects/SMC_Searcher/One_shot_MuRES/Robot_Data/Robot_Trajectory/{}_{}R{}.npy"
-        self.robot_trajectory_file_path = robot_trajectory_file_base.format(self.env_name, Algorithm, robot_num)
+        script_dir = os.path.dirname(os.path.realpath(__file__))
+        script_dir = os.path.dirname(script_dir)
+        self.robot_trajectory_file_path = os.path.join(script_dir, f"MuRES/Robot_Trajectory/{self.env_name}_{Algorithm}R{robot_num}.npy")
         self._prepare_robots_repo()
 
     def _sample_robots_trajectories(self):
