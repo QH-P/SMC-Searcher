@@ -51,7 +51,7 @@ if __name__ == "__main__":
     # Step 2: Sample trajectories using SMC_Sample
     print("Sampling Trajectories from Trained SMC Agents...")
     sample_agents = SMC_Exe(robot_num, signal_tot_num, obs_dim, hidden_dim, action_dim, device)
-    sample_agents.policy_net_load(net_file_path_base)
+    sample_agents.policy_net_load(net_file_path_base, env_name)
     trajectories_file_path_base = os.path.join(script_dir, "../MuRES/Robot_Trajectory/{}_{}R{}.npy")
     trajectories_file_path = trajectories_file_path_base.format(env_name, Algorithm, robot_num)
     robots_trajectories_list = sample_utils.sample_from_trained_algorithm(env, sample_agents, sample_num)
