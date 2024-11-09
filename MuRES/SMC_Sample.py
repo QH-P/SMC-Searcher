@@ -74,9 +74,9 @@ class SMC_Exe:
         self.current_signal_num = 0
         self.current_signal_embed = self.signal_embedding(torch.tensor(self.current_signal_num))
 
-    def policy_net_load(self, net_file_p):
+    def policy_net_load(self, net_file_p, env_name):
         for agent_id, agent in enumerate(self.acs):
-            agent.actor.load_state_dict(torch.load(net_file_p.format(env_name, Algorithm, robot_num, agent_id)))
+            agent.actor.load_state_dict(torch.load(net_file_p.format(env_name, self.alg_name, self.num_agents, agent_id)))
             agent.actor.eval()
             for param in agent.actor.parameters():
                 param.requires_grad = False
