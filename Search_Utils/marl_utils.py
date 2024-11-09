@@ -83,8 +83,6 @@ def train_on_policy_mures1(env, agents, num_episodes, sample_size):
                                       'total_return': '%.3f' % np.mean(return_list[-10:]),
                                       'mean_capture_time': '%.3f' % np.mean(capture_time_list[-10:])})
                 pbar.update(1)
-                if i_episode % (int(num_episodes / 30)) == 0 and i_episode != 0:
-                    print("trajectories:",env.robot_trajectories)
     return return_list, capture_time_list
 
 class ReplayBufferMuRESI:
@@ -158,6 +156,4 @@ def train_off_policy_mures1(env, agents, num_episodes, replay_buffer, minimal_si
                                       'total_return': '%.3f' % np.mean(return_list[-10:]),
                                       'mean_capture_time': '%.3f' % np.mean(capture_time_list[-10:])})
                 pbar.update(1)
-                if i_episode % (int(num_episodes / 30)) == 0 and i_episode != 0:
-                    print("trajectories:", env.robot_trajectories)
     return return_list, capture_time_list
