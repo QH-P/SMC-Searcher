@@ -120,7 +120,7 @@ if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.realpath(__file__))
     net_file_path_base = os.path.join(script_dir, "Robot_Net/{}_{}T{}R{}.pth")
     # net_file_path_base = "/Users/pqh/PycharmProjects/SMC_Searcher/One_shot_MuRES/Robot_Data/Robot_net/{}_{}T{}R{}.pth"
-    agents.policy_net_load(net_file_path_base)
+    agents.policy_net_load(net_file_path_base, env_name)
 
     robots_trajectories_list = sample_utils.sample_from_trained_algorithm(env,agents,sample_num)
     trajectories_file_path_base = os.path.join(script_dir, "Robot_Trajectory/{}_{}R{}.npy")
